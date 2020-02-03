@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 # skip if no /build
 echo "Checking if contains '/build' command..."
@@ -22,7 +22,6 @@ PR_NUMBER=$(jq -r ".issue.number" "$GITHUB_EVENT_PATH")
 REPO_FULLNAME=$(jq -r ".repository.full_name" "$GITHUB_EVENT_PATH")
 echo "Collecting information about PR #$PR_NUMBER of $REPO_FULLNAME..."
 
-jq --raw-output . "$GITHUB_EVENT_PATH"
 
 if [[ -z "$CIRCLE_TOKEN" ]]; then
 	echo "Set the CIRCLE_TOKEN env variable."
@@ -43,6 +42,11 @@ pr_resp=$(curl -X GET -s -H "${AUTH_HEADER}" -H "${API_HEADER}" \
 
 BRANCH=$(echo "$pr_resp" | jq -r .head.ref)
 
-curl -u $CIRCLE_TOKEN: -X POST --header "Content-Type: application/json" -d '{
-  "branch": "$BRANCH"
-}' https://circleci.com/api/v2/project/gh/$REPO_FULLNAME/pipeline
+PARAMETERS='"app":true'
+DATA="{ \"branch\": \"$BRANCH\", \"parameters\": { $PARAMETERS } }"
+URL="https://circleci.com/api/v2/project/gh/$REPO_FULLNAME/pipeline"
+
+echo "Sending - $DATA"
+echo "To - $URL"
+
+curl -u $CIRCLE_TOKEN: -X POST --header "Content-Type: application/json" -d "$DATA"
