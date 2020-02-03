@@ -1,4 +1,15 @@
-version: 2
+version: 2.1
+
+parameters:
+  # This parameter is used to trigger the master workflow
+  trigger:
+    type: boolean
+    default: true
+
+  # A parameter per package
+  app:
+    type: boolean
+    default: false
 
 jobs:
  build:
@@ -8,3 +19,11 @@ jobs:
 
      # build the application image
      - run: docker build -t henrich-m/trigger-ci:$CIRCLE_BRANCH .
+
+workflows:
+  version: 2
+  app:
+    when: << pipeline.parameters.app >>
+    jobs:
+      - build:
+          name: app-build
