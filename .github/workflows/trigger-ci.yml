@@ -15,5 +15,5 @@ jobs:
       - name: Trigger CI Build
         uses: henrich-m/trigger-ci@v0.0.1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           CIRCLE_TOKEN: ${{ secrets.CIRCLE_TOKEN }}
