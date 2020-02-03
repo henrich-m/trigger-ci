@@ -1,4 +1,16 @@
-version: 2
+version: 2.1
+
+parameters:
+  # This parameter is used to trigger the master workflow
+  trigger:
+    type: boolean
+    default: true
+
+  # A parameter per package
+  app:
+    type: boolean
+    default: false
+
 jobs:
  app-build:
    machine: true
