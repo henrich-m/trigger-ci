@@ -49,4 +49,4 @@ URL="https://circleci.com/api/v2/project/gh/$REPO_FULLNAME/pipeline"
 echo "Sending - $DATA"
 echo "To - $URL"
 
-curl -u $CIRCLE_TOKEN: -X POST --header "Content-Type: application/json" -d "$DATA"
+curl -u $CIRCLE_TOKEN: -X POST --header "Content-Type: application/json" -d "$DATA" $URL
