@@ -42,7 +42,7 @@ pr_resp=$(curl -X GET -s -H "${AUTH_HEADER}" -H "${API_HEADER}" \
 
 BRANCH=$(echo "$pr_resp" | jq -r .head.ref)
 
-PARAMETERS='"app":true'
+PARAMETERS='"app":true, "trigger": false'
 DATA="{ \"branch\": \"$BRANCH\", \"parameters\": { $PARAMETERS } }"
 URL="https://circleci.com/api/v2/project/gh/$REPO_FULLNAME/pipeline"
 
