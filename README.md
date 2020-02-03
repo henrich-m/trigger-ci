@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Trigger CI Build
-        uses: henrichm/trigger-ci@v0.0.1
+        uses: henrich-m/trigger-ci@v0.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CIRCLE_TOKEN: ${{ secrets.CIRCLE_TOKEN }}
