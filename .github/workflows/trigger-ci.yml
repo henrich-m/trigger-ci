@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Trigger CI Build
-        uses: henrich-m/trigger-ci@v0.0.2
+        uses: henrich-m/trigger-ci@v0.0.3
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           CIRCLE_TOKEN: ${{ secrets.CIRCLE_TOKEN }}
