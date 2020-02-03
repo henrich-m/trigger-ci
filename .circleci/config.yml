@@ -1,9 +1,29 @@
 version: 2
 jobs:
- build:
+ app-build:
    machine: true
    steps:
      - checkout
 
      # build the application image
      - run: docker build -t henrich-m/trigger-ci:$CIRCLE_BRANCH .
+
+ show-instructions:
+   docker:
+     - image: alpine:latest
+   steps:
+    - run: echo 'Make a comment with /build to trigger the build process'
+
+workflows:
+  version: 2
+
+  # Necessary so we don't have a empty workflow error
+  instructions:
+    when: << pipeline.parameters.trigger >>
+    jobs:
+      - show-instructions
+
+  build:
+    when: << pipeline.parameters.app >>
+    jobs:
+      - app-build
